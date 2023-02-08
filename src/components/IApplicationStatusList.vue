@@ -1,0 +1,242 @@
+<template>
+    <div idm-ctrl="idm_module" :id="moduleObject.id" :idm-ctrl-id="moduleObject.id" class="idm-application-status-list">
+        <div class="idm-application-status-box" v-for="(item, index) in applicationStatusList" :key="index">
+            <div class="idm-application-left">
+                <div class="idm-application-name">{{ item.applicationName }}</div>
+                <div class="idm-application-number">{{ item.applicationNumber }}</div>
+            </div>
+            <div class="idm-application-right">
+                <a-tooltip v-if="textFilter(propData.tipTemplate, item)">
+                    <template slot="title">
+                        <div v-html="textFilter(propData.tipTemplate, item)"></div>
+                    </template>
+                    <img class="idm-application-right-image" :src="handleGetImageSrc(item)" />
+                </a-tooltip>
+                <img v-else class="idm-application-right-image" :src="handleGetImageSrc(item)" />
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import { mockApplicationStatusList } from '../mockData'
+export default {
+    name: 'IApplicationStatusList',
+    data() {
+        return {
+            moduleObject: {},
+            propData: this.$root.propData.compositeAttr || {
+                fontContent: 'Hello Word'
+            },
+            applicationStatusList: []
+        }
+    },
+    created() {
+        this.moduleObject = this.$root.moduleObject
+        this.convertAttrToStyleObject()
+    },
+    methods: {
+        textFilter(text, dataObj) {
+            if (!text) return ''
+            console.log(text, dataObj)
+            text = text.replace(/\r/gi, '').replace(/\n/gi, '<br/>')
+            text = text.replace(/@\[.*\]/gi, (str) => {
+                if (str.length < 4) return str
+                return IDM.express.replace(str, dataObj, true)
+            })
+            return text
+        },
+        handleGetImageSrc(item) {},
+        propDataWatchHandle(propData) {
+            this.propData = propData.compositeAttr || {}
+            this.convertAttrToStyleObject()
+        },
+        convertAttrToStyleObject() {
+            var itemStyleObject = {},
+                leftBoxObj = {},
+                appNameObj = {},
+                appNumberObj = {}
+
+            for (const key in this.propData) {
+                if (this.propData.hasOwnProperty.call(this.propData, key)) {
+                    const element = this.propData[key]
+                    if (!element && element !== false && element != 0) {
+                        continue
+                    }
+                    switch (key) {
+                        case 'width':
+                        case 'height':
+                            itemStyleObject[key] = element
+                            break
+                        case 'box':
+                            IDM.style.setBoxStyle(itemStyleObject, element)
+                            break
+                        case 'border':
+                            IDM.style.setBorderStyle(itemStyleObject, element)
+                            break
+                        case 'bgColor':
+                            if (element.hex8) {
+                                itemStyleObject['background-color'] = element.hex8
+                            }
+                            break
+                        case 'leftWidth':
+                            leftBoxObj['width'] = element
+                            break
+                        case 'leftBorder':
+                            IDM.style.setBorderStyle(leftBoxObj, element)
+                            break
+                        case 'applicationFont':
+                            IDM.style.setFontStyle(appNameObj, element)
+                            break
+                            case 'numberFont':
+                            IDM.style.setFontStyle(appNumberObj, element)
+                            break
+                    }
+                }
+            }
+            window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-status-box', itemStyleObject)
+            window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-left', leftBoxObj)
+            window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-name', appNameObj)
+            window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-number', appNumberObj)
+            this.initData()
+        },
+        reload() {
+            //请求数据源
+            this.initData()
+        },
+        initData() {
+            if (this.moduleObject.env != 'production') {
+                this.applicationStatusList = mockApplicationStatusList
+                return
+            }
+            let that = this
+            //所有地址的url参数转换
+            var params = that.commonParam()
+            switch (this.propData.dataSourceType) {
+                case 'customInterface':
+                    this.propData.customInterfaceUrl &&
+                        window.IDM.http
+                            .get(this.propData.customInterfaceUrl, params)
+                            .then((res) => {
+                                //res.data
+                                that.$set(
+                                    that.propData,
+                                    'fontContent',
+                                    that.getExpressData('resultData', that.propData.dataFiled, res.data)
+                                )
+                                // that.propData.fontContent = ;
+                            })
+                            .catch(function (error) {})
+                    break
+                case 'pageCommonInterface':
+                    //使用通用接口直接跳过，在setContextValue执行
+                    break
+                case 'customFunction':
+                    if (this.propData.customFunction && this.propData.customFunction.length > 0) {
+                        var resValue = ''
+                        try {
+                            resValue =
+                                window[this.propData.customFunction[0].name] &&
+                                window[this.propData.customFunction[0].name].call(this, {
+                                    ...params,
+                                    ...this.propData.customFunction[0].param,
+                                    moduleObject: this.moduleObject
+                                })
+                        } catch (error) {}
+                        that.propData.fontContent = resValue
+                    }
+                    break
+            }
+        },
+        getExpressData(dataName, dataFiled, resultData) {
+            //给defaultValue设置dataFiled的值
+            var _defaultVal = undefined
+            if (dataFiled) {
+                var filedExp = dataFiled
+                filedExp = dataName + (filedExp.startsWiths('[') ? '' : '.') + filedExp
+                var dataObject = { IDM: window.IDM }
+                dataObject[dataName] = resultData
+                _defaultVal = window.IDM.express.replace.call(this, '@[' + filedExp + ']', dataObject)
+            }
+            //对结果进行再次函数自定义
+            if (this.propData.customFunction && this.propData.customFunction.length > 0) {
+                var params = this.commonParam()
+                var resValue = ''
+                try {
+                    resValue =
+                        window[this.propData.customFunction[0].name] &&
+                        window[this.propData.customFunction[0].name].call(this, {
+                            ...params,
+                            ...this.propData.customFunction[0].param,
+                            moduleObject: this.moduleObject,
+                            expressData: _defaultVal,
+                            interfaceData: resultData
+                        })
+                } catch (error) {}
+                _defaultVal = resValue
+            }
+
+            return _defaultVal
+        },
+        receiveBroadcastMessage(object) {
+            console.log('组件收到消息', object)
+            if (object.type && object.type == 'linkageShowModule') {
+                this.showThisModuleHandle()
+            } else if (object.type && object.type == 'linkageHideModule') {
+                this.hideThisModuleHandle()
+            }
+        },
+        setContextValue(object) {
+            console.log('统一接口设置的值', object)
+            if (object.type != 'pageCommonInterface') {
+                return
+            }
+            //这里使用的是子表，所以要循环匹配所有子表的属性然后再去设置修改默认值
+            if (object.key == this.propData.dataName) {
+                // this.propData.fontContent = this.getExpressData(this.propData.dataName,this.propData.dataFiled,object.data);
+                this.$set(
+                    this.propData,
+                    'fontContent',
+                    this.getExpressData(this.propData.dataName, this.propData.dataFiled, object.data)
+                )
+            }
+        },
+        sendBroadcastMessage(object) {
+            window.IDM.broadcast && window.IDM.broadcast.send(object)
+        },
+        /**
+         * 通用的url参数对象
+         * 所有地址的url参数转换
+         */
+        commonParam() {
+            let urlObject = IDM.url.queryObject()
+            var params = {
+                pageId:
+                    window.IDM.broadcast && window.IDM.broadcast.pageModule ? window.IDM.broadcast.pageModule.id : '',
+                urlData: JSON.stringify(urlObject)
+            }
+            return params
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.idm-application-status-box {
+    display: flex;
+    align-items: center;
+    .idm-application-left,
+    .idm-application-right {
+        height: 100%;
+    }
+    .idm-application-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .idm-application-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+}
+</style>

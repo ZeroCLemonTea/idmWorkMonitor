@@ -1,0 +1,580 @@
+{
+    "classId": "idm.component.workMonitor.isoftwarelist",
+    "comName": "软件列表",
+    "className": "ISoftwareList",
+    "comType": "common",
+    "comLangue": "vue",
+    "compositeAttr": [
+        {
+            "type": "input",
+            "layoutType": "inline",
+            "text": "唯一标识",
+            "bindKey": "ctrlId",
+            "disabled": true,
+            "default": "@[packageid]",
+            "desc": "",
+            "helpUrl": ""
+        },
+        {
+            "type": "group",
+            "text": "基本属性",
+            "desc": "提供设置组件能达到展示效果的基本属性设置信息",
+            "children": []
+        },
+        {
+            "type": "group",
+            "text": "列表项样式",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "宽",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "width",
+                    "default": "100%"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "高",
+                    "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                    "bindKey": "height",
+                    "default": "120px"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "左侧宽度",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "leftWidth",
+                    "default": "150px"
+                },
+                {
+                    "type": "iconSelect",
+                    "layoutType": "inline",
+                    "text": "图标尺寸",
+                    "bindKey": "iconSize"
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "内外边距",
+                    "bindKey": "box",
+                    "default": {
+                        "marginTopVal": "",
+                        "marginRightVal": "",
+                        "marginBottomVal": "",
+                        "marginLeftVal": "",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "边框",
+                    "bindKey": "border",
+                    "default": {
+                        "border": {
+                            "top": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "x",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "right": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "x",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "bottom": {
+                                "style": "dashed",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": "#DCDCDCFF"
+                                }
+                            },
+                            "left": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "x",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            }
+                        },
+                        "radius": {
+                            "leftTop": {
+                                "radius": 0,
+                                "radiusUnit": "px"
+                            },
+                            "rightTop": {
+                                "radius": 0,
+                                "radiusUnit": "px"
+                            },
+                            "leftBottom": {
+                                "radius": 0,
+                                "radiusUnit": "px"
+                            },
+                            "rightBottom": {
+                                "radius": 0,
+                                "radiusUnit": "px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "左侧边框",
+                    "bindKey": "leftBorder"
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "左侧边距",
+                    "bindKey": "leftBox",
+                    "default": {
+                        "marginTopVal": "",
+                        "marginRightVal": "",
+                        "marginBottomVal": "",
+                        "marginLeftVal": "",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                },
+                {
+                    "type": "colorPicker",
+                    "layoutType": "inline",
+                    "text": "背景色",
+                    "bindKey": "bgColor",
+                    "placeholder": "请选择颜色",
+                    "default": {}
+                },
+                {
+                    "type": "font",
+                    "layoutType": "block",
+                    "text": "软件文字",
+                    "bindKey": "softwareFont",
+                    "default": {
+                        "fontFamily": "PingFangSC-Medium",
+                        "fontColors": {
+                            "hex": "#333333",
+                            "hex8": "#333333FF"
+                        },
+                        "fontWeight": "400",
+                        "fontStyle": "",
+                        "fontSize": 16,
+                        "fontSizeUnit": "px",
+                        "fontTextAlign": "center",
+                        "fontDecoration": "",
+                        "fontLetterSpacing": 0,
+                        "fontLetterSpacingUnit": "px"
+                    }
+                },
+                {
+                    "type": "font",
+                    "layoutType": "block",
+                    "text": "数量文字",
+                    "bindKey": "numberFont",
+                    "default": {
+                        "fontFamily": "PingFangSC-Medium",
+                        "fontColors": {
+                            "hex": "#333333",
+                            "hex8": "#333333FF"
+                        },
+                        "fontWeight": "600",
+                        "fontStyle": "",
+                        "fontSize": 30,
+                        "fontSizeUnit": "px",
+                        "fontTextAlign": "",
+                        "fontDecoration": "",
+                        "fontLetterSpacing": 0,
+                        "fontLetterSpacingUnit": "px"
+                    }
+                },
+                {
+                    "type": "font",
+                    "layoutType": "block",
+                    "text": "状态文字",
+                    "bindKey": "statusFont",
+                    "default": {
+                        "fontFamily": "PingFangSC-Medium",
+                        "fontColors": {
+                            "hex": "#333333",
+                            "hex8": "#333333FF"
+                        },
+                        "fontWeight": "400",
+                        "fontStyle": "",
+                        "fontSize": 16,
+                        "fontSizeUnit": "px",
+                        "fontTextAlign": "center",
+                        "fontDecoration": "",
+                        "fontLetterSpacing": 0,
+                        "fontLetterSpacingUnit": "px"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "图片样式",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "宽",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "imageWidth",
+                    "default": "48px"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "高",
+                    "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                    "bindKey": "imageHeight",
+                    "default": "48px"
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "边框",
+                    "bindKey": "imageBorder",
+                    "default": {
+                        "border": {
+                            "top": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "right": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "bottom": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "left": {
+                                "style": "",
+                                "width": 0,
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            }
+                        },
+                        "radius": {
+                            "leftTop": {
+                                "radius": 50,
+                                "radiusUnit": "%"
+                            },
+                            "rightTop": {
+                                "radius": 50,
+                                "radiusUnit": "%"
+                            },
+                            "leftBottom": {
+                                "radius": 50,
+                                "radiusUnit": "%"
+                            },
+                            "rightBottom": {
+                                "radius": 50,
+                                "radiusUnit": "%"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "图片边距",
+                    "bindKey": "imageBox",
+                    "default": {
+                        "marginTopVal": "",
+                        "marginRightVal": "",
+                        "marginBottomVal": "10px",
+                        "marginLeftVal": "",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "状态组样式",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "宽",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "statusWidth",
+                    "default": "116px"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "高",
+                    "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                    "bindKey": "statusHeight",
+                    "default": "82px"
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "边框",
+                    "bindKey": "statusBorder",
+                    "default": {
+                        "border": {
+                            "top": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "right": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "bottom": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            },
+                            "left": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": ""
+                                }
+                            }
+                        },
+                        "radius": {
+                            "leftTop": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            },
+                            "rightTop": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            },
+                            "leftBottom": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            },
+                            "rightBottom": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "内外边距",
+                    "bindKey": "statusBox",
+                    "default": {
+                        "marginTopVal": "",
+                        "marginRightVal": "30px",
+                        "marginBottomVal": "",
+                        "marginLeftVal": "",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "图标边距",
+                    "bindKey": "iconBox",
+                    "default": {
+                        "marginTopVal": "",
+                        "marginRightVal": "10px",
+                        "marginBottomVal": "",
+                        "marginLeftVal": "",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "数字边距",
+                    "bindKey": "numberBox",
+                    "default": {
+                        "marginTopVal": "",
+                        "marginRightVal": "",
+                        "marginBottomVal": "",
+                        "marginLeftVal": "6px",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "text": "软件图片配置",
+            "bindKey": "imageList",
+            "tabText": "软件[index]",
+            "default": [
+                {
+                    "softwareName": "数据库",
+                    "image": "defaultImage"
+                },
+                {
+                    "softwareName": "缓存",
+                    "image": "defaultImage"
+                },
+                {
+                    "softwareName": "Web中间件",
+                    "image": "defaultImage"
+                },
+                {
+                    "softwareName": "Elasticsearch",
+                    "image": "defaultImage"
+                },
+                {
+                    "softwareName": "消息中间件",
+                    "image": "defaultImage"
+                }
+            ],
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "软件名称",
+                    "bindKey": "softwareName"
+                },
+                {
+                    "type": "uploadImage",
+                    "layoutType": "inline",
+                    "text": "显示图片",
+                    "bindKey": "image"
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "text": "状态组配置",
+            "bindKey": "statusList",
+            "tabText": "状态[index]",
+            "default": [
+                {
+                    "status": "正常",
+                    "defaultIcon": "duihao",
+                    "numberField": "normalNumber",
+                    "color": {
+                        "hex8": "#44D7B6FF"
+                    },
+                    "iconSize": "34px"
+                },
+                {
+                    "status": "异常",
+                    "defaultIcon": "gantanhao",
+                    "numberField": "warningNumber",
+                    "color": {
+                        "hex8": "#F7B500FF"
+                    },
+                    "iconSize": "34px"
+                },
+                {
+                    "status": "关闭",
+                    "defaultIcon": "chahao",
+                    "numberField": "closeNumber",
+                    "color": {
+                        "hex8": "#CDCDCDFF"
+                    },
+                    "iconSize": "34px"
+                }
+            ],
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "状态文本",
+                    "bindKey": "status"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "数量字段",
+                    "bindKey": "numberField"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "默认icon",
+                    "bindKey": "defaultIcon",
+                    "display": "@[false]"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "icon尺寸",
+                    "bindKey": "iconSize"
+                },
+                {
+                    "type": "colorPicker",
+                    "layoutType": "inline",
+                    "text": "状态颜色",
+                    "bindKey": "color"
+                },
+                {
+                    "type": "iconSelect",
+                    "layoutType": "inline",
+                    "text": "显示图标",
+                    "bindKey": "icon"
+                }
+            ]
+        }
+    ]
+}

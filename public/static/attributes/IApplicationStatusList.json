@@ -1,0 +1,253 @@
+{
+    "classId": "idm.component.workMonitor.iapplicationstatuslist",
+    "comName": "应用状态列表",
+    "className": "IApplicationStatusList",
+    "comType": "common",
+    "comLangue": "vue",
+    "compositeAttr": [
+        {
+            "type": "input",
+            "layoutType": "inline",
+            "text": "唯一标识",
+            "bindKey": "ctrlId",
+            "disabled": true,
+            "default": "@[packageid]",
+            "desc": "",
+            "helpUrl": ""
+        },
+        {
+            "type": "group",
+            "text": "基本属性",
+            "desc": "提供设置组件能达到展示效果的基本属性设置信息",
+            "children": [
+                {
+                    "type": "textarea",
+                    "layoutType": "inline",
+                    "text": "内容文本",
+                    "bindKey": "tipTemplate",
+                    "defaultValRegExp": false,
+                    "desc": "可用文本表达式配置",
+                    "default": "<div>@[memberName]同志</div>"
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "列表项样式",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "宽",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "width",
+                    "default": "100%"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "左侧宽度",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "leftWidth",
+                    "default": "100px"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "高",
+                    "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                    "bindKey": "height",
+                    "default": "100px"
+                },
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "内外边距",
+                    "bindKey": "box",
+                    "default": {
+                        "marginTopVal": "20px",
+                        "marginRightVal": "",
+                        "marginBottomVal": "",
+                        "marginLeftVal": "",
+                        "paddingTopVal": "",
+                        "paddingRightVal": "",
+                        "paddingBottomVal": "",
+                        "paddingLeftVal": ""
+                    }
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "边框",
+                    "bindKey": "border",
+                    "default": {
+                        "border": {
+                            "top": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": "#D9D9D9FF"
+                                }
+                            },
+                            "right": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": "#D9D9D9FF"
+                                }
+                            },
+                            "bottom": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": "#D9D9D9FF"
+                                }
+                            },
+                            "left": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": "#D9D9D9FF"
+                                }
+                            }
+                        },
+                        "radius": {
+                            "leftTop": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            },
+                            "rightTop": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            },
+                            "leftBottom": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            },
+                            "rightBottom": {
+                                "radius": 6,
+                                "radiusUnit": "px"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "左侧边框",
+                    "bindKey": "leftBorder",
+                    "default": {
+                        "border": {
+                            "top": {
+                                "style": "",
+                                "width": "",
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": "#"
+                                }
+                            },
+                            "right": {
+                                "style": "solid",
+                                "width": 1,
+                                "widthUnit": "px",
+                                "colors": {
+                                    "hex8": "#D9D9D9FF"
+                                }
+                            },
+                            "bottom": {
+                                "style": "",
+                                "width": "",
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": "#"
+                                }
+                            },
+                            "left": {
+                                "style": "",
+                                "width": "",
+                                "widthUnit": "",
+                                "colors": {
+                                    "hex8": "#"
+                                }
+                            }
+                        },
+                        "radius": {
+                            "leftTop": {
+                                "radius": 0,
+                                "radiusUnit": ""
+                            },
+                            "rightTop": {
+                                "radius": 0,
+                                "radiusUnit": ""
+                            },
+                            "leftBottom": {
+                                "radius": 0,
+                                "radiusUnit": ""
+                            },
+                            "rightBottom": {
+                                "radius": 0,
+                                "radiusUnit": ""
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "colorPicker",
+                    "layoutType": "inline",
+                    "text": "背景色",
+                    "bindKey": "bgColor",
+                    "placeholder": "请选择颜色",
+                    "default": {}
+                },
+                {
+                    "type": "font",
+                    "layoutType": "block",
+                    "text": "应用文字",
+                    "bindKey": "applicationFont",
+                    "default": {
+                        "fontFamily": "PingFangSC-Medium",
+                        "fontColors": {
+                            "hex": "#333333",
+                            "hex8": "#333333FF"
+                        },
+                        "fontWeight": "500",
+                        "fontStyle": "",
+                        "fontSize": 18,
+                        "fontSizeUnit": "px",
+                        "fontTextAlign": "center",
+                        "fontDecoration": "",
+                        "fontLetterSpacing": 0,
+                        "fontLetterSpacingUnit": "px"
+                    }
+                },
+                {
+                    "type": "font",
+                    "layoutType": "block",
+                    "text": "数量文字",
+                    "bindKey": "numberFont",
+                    "default": {
+                        "fontFamily": "PingFangSC-Medium",
+                        "fontColors": {
+                            "hex": "#34D1B3",
+                            "hex8": "#34D1B3FF"
+                        },
+                        "fontWeight": "600",
+                        "fontStyle": "",
+                        "fontSize": 30,
+                        "fontSizeUnit": "px",
+                        "fontTextAlign": "center",
+                        "fontDecoration": "",
+                        "fontLetterSpacing": 0,
+                        "fontLetterSpacingUnit": "px"
+                    }
+                }
+            ]
+        }
+    ]
+}
