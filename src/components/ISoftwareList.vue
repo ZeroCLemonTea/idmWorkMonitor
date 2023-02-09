@@ -2,8 +2,10 @@
     <div idm-ctrl="idm_module" :id="moduleObject.id" :idm-ctrl-id="moduleObject.id" class="idm-software-status-list">
         <div class="idm-software-status-box" v-for="(item, index) in softwareList" :key="index">
             <div class="idm-software-left">
-                <img :src="getImageUrl(item)" alt="图片加载失败" class="idm-software-image" />
-                <div class="idm-software-name">{{ item.softwareName }}</div>
+                <img :src="getCurrentItemInfo(item).image" alt="图片加载失败" class="idm-software-image" />
+                <div class="idm-software-name">
+                    {{ getCurrentItemInfo(item).text }}
+                </div>
             </div>
             <div class="idm-software-right">
                 <div
@@ -31,7 +33,7 @@
                             {{ handleStatusNumber(items, item) }}
                         </div>
                         <div class="idm-software-status">
-                            {{ items.status }}
+                            {{ items.text }}
                         </div>
                     </div>
                 </div>
@@ -41,6 +43,7 @@
 </template>
 <script>
 import { mockSoftwareStaticsList } from '../mockData'
+
 export default {
     name: 'ISoftwareList',
     data() {
@@ -69,50 +72,49 @@ export default {
         handleStatusNumber(items, item) {
             return IDM.express.replace(`@[${items.numberField}]`, item, true)
         },
-        getImageUrl(item) {
-            const currentItem = this.propData?.imageList?.find((el) => el.softwareName == item.softwareName)
-            if (!currentItem || !currentItem.image) return ''
+        getCurrentItemInfo(item) {
+            let image = '',
+                text
+            const currentItem = this.propData?.softwareList?.find(
+                (el) =>
+                    IDM.express.replace(`@[${this.propData.statusField}]`, el, true) ==
+                    IDM.express.replace(`@[${this.propData.statusField}]`, item, true)
+            )
+            if (!currentItem) {
+                return { image: '', text: '' }
+            }
             if (currentItem.image === 'defaultImage') {
-                switch (currentItem.softwareName) {
-                    case '数据库':
-                        currentItem.image = IDM.url.getModuleAssetsWebPath(
-                            require('../assets/shujuku.png'),
-                            this.moduleObject
-                        )
+                switch (currentItem.type) {
+                    case 'database':
+                        image = IDM.url.getModuleAssetsWebPath(require('../assets/shujuku.png'), this.moduleObject)
                         break
-                    case '缓存':
-                        currentItem.image = IDM.url.getModuleAssetsWebPath(
-                            require('../assets/huancun.png'),
-                            this.moduleObject
-                        )
+                    case 'cache':
+                        image = IDM.url.getModuleAssetsWebPath(require('../assets/huancun.png'), this.moduleObject)
                         break
-                    case 'Web中间件':
-                        currentItem.image = IDM.url.getModuleAssetsWebPath(
+                    case 'webMiddleware':
+                        image = IDM.url.getModuleAssetsWebPath(
                             require('../assets/zhongjianjian.png'),
                             this.moduleObject
                         )
                         break
-                    case 'Elasticsearch':
-                        currentItem.image = IDM.url.getModuleAssetsWebPath(
+                    case 'elasticsearch':
+                        image = IDM.url.getModuleAssetsWebPath(
                             require('../assets/Elasticsearch.png'),
                             this.moduleObject
                         )
                         break
-                    case '消息中间件':
-                        currentItem.image = IDM.url.getModuleAssetsWebPath(
-                            require('../assets/xiaoxi.png'),
-                            this.moduleObject
-                        )
+                    case 'messageMiddleware':
+                        image = IDM.url.getModuleAssetsWebPath(require('../assets/xiaoxi.png'), this.moduleObject)
                         break
                     default:
-                        currentItem.image = IDM.url.getModuleAssetsWebPath(
-                            require('../assets/xiaoxi.png'),
-                            this.moduleObject
-                        )
+                        image = IDM.url.getModuleAssetsWebPath(require('../assets/xiaoxi.png'), this.moduleObject)
                         break
                 }
             }
-            return IDM.url.getWebPath(currentItem.image)
+            return {
+                text: currentItem.softwareName,
+                image: IDM.url.getWebPath(image)
+            }
         },
         handleGetImageSrc(item) {},
         propDataWatchHandle(propData) {
@@ -273,7 +275,7 @@ export default {
         },
         receiveBroadcastMessage(object) {
             console.log('组件收到消息', object)
-            switch(object.type) {
+            switch (object.type) {
                 case 'linkageReload':
                     this.initData()
                     break

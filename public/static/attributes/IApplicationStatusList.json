@@ -23,8 +23,17 @@
                 {
                     "type": "textarea",
                     "layoutType": "inline",
-                    "text": "悬浮文本",
-                    "bindKey": "tipTemplate",
+                    "text": "硬件提示",
+                    "bindKey": "hardTipTemplate",
+                    "defaultValRegExp": false,
+                    "desc": "可用文本表达式配置",
+                    "default": "<div>@[name]</div>"
+                },
+                {
+                    "type": "textarea",
+                    "layoutType": "inline",
+                    "text": "软件提示",
+                    "bindKey": "softTipTemplate",
                     "defaultValRegExp": false,
                     "desc": "可用文本表达式配置",
                     "default": "<div>@[name]</div>"
@@ -59,7 +68,7 @@
                     "text": "左侧宽度",
                     "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
                     "bindKey": "leftWidth",
-                    "default": "100px"
+                    "default": "120px"
                 },
                 {
                     "type": "box",
@@ -249,14 +258,14 @@
                 },
                 {
                     "type": "group",
-                    "text": "图片样式",
+                    "text": "状态盒子样式",
                     "desc": "点击？查看样式设置用法指南",
                     "helpUrl": "",
                     "children": [
                         {
                             "type": "input",
                             "layoutType": "inline",
-                            "text": "图片宽",
+                            "text": "宽度",
                             "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
                             "bindKey": "imageWidth",
                             "default": "40px"
@@ -264,7 +273,7 @@
                         {
                             "type": "input",
                             "layoutType": "inline",
-                            "text": "图片高",
+                            "text": "高度",
                             "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
                             "bindKey": "imageHeight",
                             "default": "40px"
@@ -272,7 +281,7 @@
                         {
                             "type": "border",
                             "layoutType": "block",
-                            "text": "图片边框",
+                            "text": "边框",
                             "bindKey": "imageBorder",
                             "default": {
                                 "border": {
@@ -332,7 +341,7 @@
                         {
                             "type": "box",
                             "layoutType": "block",
-                            "text": "图片边距",
+                            "text": "边距",
                             "bindKey": "imageBox",
                             "default": {
                                 "marginTopVal": "",
@@ -351,20 +360,66 @@
         },
         {
             "type": "table",
+            "text": "应用组配置",
+            "bindKey": "applicationList",
+            "tabText": "应用[index]",
+            "default": [
+                {
+                    "softwareName": "服务器",
+                    "type": "server"
+                },
+                {
+                    "softwareName": "数据库",
+                    "type": "database"
+                },
+                {
+                    "softwareName": "缓存",
+                    "type": "cache"
+                },
+                {
+                    "softwareName": "Web中间件",
+                    "type": "webMiddleware"
+                },
+                {
+                    "softwareName": "Elasticsearch",
+                    "type": "elasticsearch"
+                },
+                {
+                    "softwareName": "消息中间件",
+                    "type": "messageMiddleware"
+                }
+            ],
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "代码",
+                    "bindKey": "type"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "应用名称",
+                    "bindKey": "softwareName"
+                }
+            ]
+        },
+        {
+            "type": "table",
             "text": "状态组配置",
             "bindKey": "statusList",
             "tabText": "状态[index]",
             "default": [
                 {
-                    "status": "正常",
+                    "type": "normal",
                     "backgroundColor": "radial-gradient(#CDFF57 18%, #6DD400 100%)"
                 },
                 {
-                    "status": "异常",
+                    "type": "abnormal",
                     "backgroundColor": "radial-gradient(#FFDE57 18%, #FFB438 100%)"
                 },
                 {
-                    "status": "关闭",
+                    "type": "close",
                     "backgroundColor": "radial-gradient(#E8E8E8 18%, #C1C1C1 100%)"
                 }
             ],
@@ -372,8 +427,8 @@
                 {
                     "type": "input",
                     "layoutType": "inline",
-                    "text": "状态文本",
-                    "bindKey": "status"
+                    "text": "状态代码",
+                    "bindKey": "type"
                 },
                 {
                     "type": "input",
@@ -432,6 +487,35 @@
                     "default": "",
                     "placeholder": "示例：data.filedName 或者 [0].data[0].filedName",
                     "display": "@[dataType=='pageCommonInterface']"
+                },
+                {
+                    "type": "group",
+                    "text": "字段配置",
+                    "desc": "点击？查看样式设置用法指南",
+                    "helpUrl": "",
+                    "children": [
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "应用代码",
+                            "bindKey": "applicationTypeField",
+                            "default": "type"
+                        },
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "应用数量",
+                            "bindKey": "applicationNumberField",
+                            "default": "applicationNumber"
+                        },
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "状态文本",
+                            "bindKey": "statusTextField",
+                            "default": "statusText"
+                        }
+                    ]
                 }
             ]
         }

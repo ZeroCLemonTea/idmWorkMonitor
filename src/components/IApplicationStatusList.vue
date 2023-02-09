@@ -2,19 +2,21 @@
     <div idm-ctrl="idm_module" :id="moduleObject.id" :idm-ctrl-id="moduleObject.id" class="idm-application-status-list">
         <div class="idm-application-status-box" v-for="(item, index) in applicationStatusList" :key="index">
             <div class="idm-application-left">
-                <div class="idm-application-name">{{ item.applicationName }}</div>
-                <div class="idm-application-number">{{ item.applicationNumber }}</div>
+                <div class="idm-application-name">{{ handleGetCurrentApplication(item).text }}</div>
+                <div class="idm-application-number">
+                    {{ IDM.express.replace(`@[${propData.applicationNumberField}]`, item, true) }}
+                </div>
             </div>
             <div class="idm-application-right">
                 <template v-for="(items, indexs) in item.children">
-                    <a-tooltip v-if="textFilter(propData.tipTemplate, items)" :key="indexs">
+                    <a-tooltip v-if="textFilter(items, item)" :key="indexs">
                         <template slot="title">
-                            <div v-html="textFilter(propData.tipTemplate, items)"></div>
+                            <div v-html="textFilter(items, item)"></div>
                         </template>
-                        <div class="idm-application-right-image" :style="handleGetStyle(items)" ></div>
+                        <div class="idm-application-right-image" :style="handleGetStyle(items)"></div>
                     </a-tooltip>
-                    <div v-else class="idm-application-right-image" :style="handleGetStyle(items)" :key="indexs"
-                ></div> </template>
+                    <div v-else class="idm-application-right-image" :style="handleGetStyle(items)" :key="indexs"></div>
+                </template>
             </div>
         </div>
     </div>
@@ -37,20 +39,44 @@ export default {
         this.convertAttrToStyleObject()
     },
     methods: {
-        textFilter(text, dataObj) {
+        textFilter(items, item) {
+            const type = IDM.express.replace(`@[${this.propData.applicationTypeField}]`, item, true)
+            let text = ''
+            switch (type) {
+                // 硬件
+                case 'server':
+                    text = this.propData.hardTipTemplate
+                    break
+                // 软件
+                default:
+                    text = this.propData.softTipTemplate
+                    break
+            }
             if (!text) return ''
-            console.log(text, dataObj)
+            console.log(text, items)
             text = text.replace(/\r/gi, '').replace(/\n/gi, '<br/>')
             text = text.replace(/@\[.*\]/gi, (str) => {
                 if (str.length < 4) return str
-                return IDM.express.replace(str, dataObj, true)
+                return IDM.express.replace(str, items, true)
             })
             return text
         },
+        handleGetCurrentApplication(item) {
+            let obj = {}
+            const currentItem = this.propData?.applicationList?.find(
+                (el) => el.type === IDM.express.replace(`@[${this.propData.applicationTypeField}]`, item, true)
+            )
+            if (currentItem) {
+                obj.text = currentItem.softwareName
+            }
+            return obj
+        },
         handleGetStyle(items) {
             let styleObj = {}
-            const currentItem = this?.propData.statusList?.find(el => el.status === items.statusText)
-            if(currentItem) {
+            const currentItem = this?.propData.statusList?.find(
+                (el) => el.type === IDM.express.replace(`@[${this.propData.applicationTypeField}]`, items, true)
+            )
+            if (currentItem) {
                 styleObj.backgroundImage = currentItem.backgroundColor
             }
             return styleObj
@@ -186,7 +212,7 @@ export default {
         },
         receiveBroadcastMessage(object) {
             console.log('组件收到消息', object)
-            switch(object.type) {
+            switch (object.type) {
                 case 'linkageReload':
                     this.initData()
                     break
