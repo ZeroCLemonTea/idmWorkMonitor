@@ -29,13 +29,13 @@ export const mockApplicationStatusList = [
             },
             {
                 status: 'normal',
-                statusText: '正常',
+                statusText: '异常',
                 name: '服务器一',
                 ip: '192.168.1.1'
             },
             {
                 status: 'normal',
-                statusText: '正常',
+                statusText: '关闭',
                 name: '服务器一',
                 ip: '192.168.1.1'
             }
@@ -53,13 +53,13 @@ export const mockApplicationStatusList = [
             },
             {
                 status: 'normal',
-                statusText: '正常',
+                statusText: '异常',
                 name: '数据库一',
                 ip: '192.168.1.1'
             },
             {
                 status: 'normal',
-                statusText: '正常',
+                statusText: '关闭',
                 name: '数据库一',
                 ip: '192.168.1.1'
             }

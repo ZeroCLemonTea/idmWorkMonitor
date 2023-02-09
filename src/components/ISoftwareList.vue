@@ -181,9 +181,9 @@ export default {
                         case 'statusFont':
                             IDM.style.setFontStyle(statusObj, element)
                             break
-                        case 'statusWidth':
-                            statusBoxObj['width'] = element
-                            break
+                        // case 'statusWidth':
+                        //     statusBoxObj['width'] = element
+                        //     break
                         case 'statusHeight':
                             statusBoxObj['height'] = element
                             break
@@ -218,42 +218,26 @@ export default {
                 this.softwareList = mockSoftwareStaticsList
                 return
             }
-            let that = this
             //所有地址的url参数转换
-            var params = that.commonParam()
-            switch (this.propData.dataSourceType) {
-                case 'customInterface':
-                    this.propData.customInterfaceUrl &&
-                        window.IDM.http
-                            .get(this.propData.customInterfaceUrl, params)
-                            .then((res) => {
-                                //res.data
-                                that.$set(
-                                    that.propData,
-                                    'fontContent',
-                                    that.getExpressData('resultData', that.propData.dataFiled, res.data)
-                                )
-                                // that.propData.fontContent = ;
-                            })
-                            .catch(function (error) {})
-                    break
+            var params = this.commonParam()
+            switch (this.propData.dataType) {
                 case 'pageCommonInterface':
                     //使用通用接口直接跳过，在setContextValue执行
                     break
-                case 'customFunction':
-                    if (this.propData.customFunction && this.propData.customFunction.length > 0) {
-                        var resValue = ''
-                        try {
-                            resValue =
-                                window[this.propData.customFunction[0].name] &&
-                                window[this.propData.customFunction[0].name].call(this, {
-                                    ...params,
-                                    ...this.propData.customFunction[0].param,
-                                    moduleObject: this.moduleObject
-                                })
-                        } catch (error) {}
-                        that.propData.fontContent = resValue
-                    }
+                case 'dataSource':
+                    IDM.datasource.request(
+                        this.propData?.dataSource?.[0]?.id,
+                        {
+                            moduleObject: this.moduleObject,
+                            param: params
+                        },
+                        (res) => {
+                            this.softwareList = res
+                        },
+                        (err) => {
+                            this.softwareList = []
+                        }
+                    )
                     break
             }
         },
@@ -289,10 +273,10 @@ export default {
         },
         receiveBroadcastMessage(object) {
             console.log('组件收到消息', object)
-            if (object.type && object.type == 'linkageShowModule') {
-                this.showThisModuleHandle()
-            } else if (object.type && object.type == 'linkageHideModule') {
-                this.hideThisModuleHandle()
+            switch(object.type) {
+                case 'linkageReload':
+                    this.initData()
+                    break
             }
         },
         setContextValue(object) {
@@ -302,12 +286,7 @@ export default {
             }
             //这里使用的是子表，所以要循环匹配所有子表的属性然后再去设置修改默认值
             if (object.key == this.propData.dataName) {
-                // this.propData.fontContent = this.getExpressData(this.propData.dataName,this.propData.dataFiled,object.data);
-                this.$set(
-                    this.propData,
-                    'fontContent',
-                    this.getExpressData(this.propData.dataName, this.propData.dataFiled, object.data)
-                )
+                this.softwareList = this.getExpressData(this.propData.dataName, this.propData.dataFiled, object.data)
             }
         },
         sendBroadcastMessage(object) {
@@ -358,11 +337,13 @@ export default {
     .idm-software-right {
         display: flex;
         align-items: center;
+        flex: 1;
     }
     .idm-software-right-box {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex: 1;
     }
 }
 </style>

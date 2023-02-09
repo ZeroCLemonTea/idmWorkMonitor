@@ -337,14 +337,6 @@
                 {
                     "type": "input",
                     "layoutType": "inline",
-                    "text": "宽",
-                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
-                    "bindKey": "statusWidth",
-                    "default": "116px"
-                },
-                {
-                    "type": "input",
-                    "layoutType": "inline",
                     "text": "高",
                     "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
                     "bindKey": "statusHeight",
@@ -433,7 +425,7 @@
                     "bindKey": "iconBox",
                     "default": {
                         "marginTopVal": "",
-                        "marginRightVal": "10px",
+                        "marginRightVal": "15%",
                         "marginBottomVal": "",
                         "marginLeftVal": "",
                         "paddingTopVal": "",
@@ -573,6 +565,58 @@
                     "layoutType": "inline",
                     "text": "显示图标",
                     "bindKey": "icon"
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "高级",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "select",
+                    "layoutType": "inline",
+                    "text": "数据模式",
+                    "bindKey": "dataType",
+                    "default": "dataSource",
+                    "dictionary": [
+                        {
+                            "label": "数据源",
+                            "value": "dataSource"
+                        },
+                        {
+                            "label": "页面统一接口",
+                            "value": "pageCommonInterface"
+                        }
+                    ]
+                },
+                {
+                    "type": "dataSourceSelect",
+                    "text": "数据源",
+                    "layoutType": "inline",
+                    "display": "@[dataType == 'dataSource']",
+                    "bindKey": "dataSource"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "结果集名",
+                    "bindKey": "dataName",
+                    "desc": "页面接口设定的结果集名称，位置为：页面设置》高级设置》页面接口",
+                    "default": "",
+                    "placeholder": "示例：resultData",
+                    "display": "@[dataType=='pageCommonInterface']"
+                },
+                {
+                    "type": "textarea",
+                    "layoutType": "inline",
+                    "text": "显示字段",
+                    "bindKey": "dataFiled",
+                    "desc": "根据接口返回数据格式指定结果集的字段，比如结果集名为resultData（自定义接口忽略）且它的值为{data:{filedName:[{\"text\":\"\",\"value\":\"\",\"check\":true}]}}，则这里应该填写data.filedName",
+                    "default": "",
+                    "placeholder": "示例：data.filedName 或者 [0].data[0].filedName",
+                    "display": "@[dataType=='pageCommonInterface']"
                 }
             ]
         }

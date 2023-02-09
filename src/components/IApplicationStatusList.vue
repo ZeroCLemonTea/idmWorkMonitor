@@ -6,13 +6,15 @@
                 <div class="idm-application-number">{{ item.applicationNumber }}</div>
             </div>
             <div class="idm-application-right">
-                <a-tooltip v-if="textFilter(propData.tipTemplate, item)">
-                    <template slot="title">
-                        <div v-html="textFilter(propData.tipTemplate, item)"></div>
-                    </template>
-                    <img class="idm-application-right-image" :src="handleGetImageSrc(item)" />
-                </a-tooltip>
-                <img v-else class="idm-application-right-image" :src="handleGetImageSrc(item)" />
+                <template v-for="(items, indexs) in item.children">
+                    <a-tooltip v-if="textFilter(propData.tipTemplate, items)" :key="indexs">
+                        <template slot="title">
+                            <div v-html="textFilter(propData.tipTemplate, items)"></div>
+                        </template>
+                        <div class="idm-application-right-image" :style="handleGetStyle(items)" ></div>
+                    </a-tooltip>
+                    <div v-else class="idm-application-right-image" :style="handleGetStyle(items)" :key="indexs"
+                ></div> </template>
             </div>
         </div>
     </div>
@@ -45,7 +47,14 @@ export default {
             })
             return text
         },
-        handleGetImageSrc(item) {},
+        handleGetStyle(items) {
+            let styleObj = {}
+            const currentItem = this?.propData.statusList?.find(el => el.status === items.statusText)
+            if(currentItem) {
+                styleObj.backgroundImage = currentItem.backgroundColor
+            }
+            return styleObj
+        },
         propDataWatchHandle(propData) {
             this.propData = propData.compositeAttr || {}
             this.convertAttrToStyleObject()
@@ -54,7 +63,8 @@ export default {
             var itemStyleObject = {},
                 leftBoxObj = {},
                 appNameObj = {},
-                appNumberObj = {}
+                appNumberObj = {},
+                imageObj = {}
 
             for (const key in this.propData) {
                 if (this.propData.hasOwnProperty.call(this.propData, key)) {
@@ -87,8 +97,20 @@ export default {
                         case 'applicationFont':
                             IDM.style.setFontStyle(appNameObj, element)
                             break
-                            case 'numberFont':
+                        case 'numberFont':
                             IDM.style.setFontStyle(appNumberObj, element)
+                            break
+                        case 'imageWidth':
+                            imageObj['width'] = element
+                            break
+                        case 'imageHeight':
+                            imageObj['height'] = element
+                            break
+                        case 'imageBorder':
+                            IDM.style.setBorderStyle(imageObj, element)
+                            break
+                        case 'imageBox':
+                            IDM.style.setBoxStyle(imageObj, element)
                             break
                     }
                 }
@@ -97,6 +119,7 @@ export default {
             window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-left', leftBoxObj)
             window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-name', appNameObj)
             window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-number', appNumberObj)
+            window.IDM.setStyleToPageHead(this.moduleObject.id + ' .idm-application-right-image', imageObj)
             this.initData()
         },
         reload() {
@@ -108,42 +131,26 @@ export default {
                 this.applicationStatusList = mockApplicationStatusList
                 return
             }
-            let that = this
             //所有地址的url参数转换
-            var params = that.commonParam()
-            switch (this.propData.dataSourceType) {
-                case 'customInterface':
-                    this.propData.customInterfaceUrl &&
-                        window.IDM.http
-                            .get(this.propData.customInterfaceUrl, params)
-                            .then((res) => {
-                                //res.data
-                                that.$set(
-                                    that.propData,
-                                    'fontContent',
-                                    that.getExpressData('resultData', that.propData.dataFiled, res.data)
-                                )
-                                // that.propData.fontContent = ;
-                            })
-                            .catch(function (error) {})
-                    break
+            var params = this.commonParam()
+            switch (this.propData.dataType) {
                 case 'pageCommonInterface':
                     //使用通用接口直接跳过，在setContextValue执行
                     break
-                case 'customFunction':
-                    if (this.propData.customFunction && this.propData.customFunction.length > 0) {
-                        var resValue = ''
-                        try {
-                            resValue =
-                                window[this.propData.customFunction[0].name] &&
-                                window[this.propData.customFunction[0].name].call(this, {
-                                    ...params,
-                                    ...this.propData.customFunction[0].param,
-                                    moduleObject: this.moduleObject
-                                })
-                        } catch (error) {}
-                        that.propData.fontContent = resValue
-                    }
+                case 'dataSource':
+                    IDM.datasource.request(
+                        this.propData?.dataSource?.[0]?.id,
+                        {
+                            moduleObject: this.moduleObject,
+                            param: params
+                        },
+                        (res) => {
+                            this.applicationStatusList = res
+                        },
+                        (err) => {
+                            this.applicationStatusList = []
+                        }
+                    )
                     break
             }
         },
@@ -179,10 +186,10 @@ export default {
         },
         receiveBroadcastMessage(object) {
             console.log('组件收到消息', object)
-            if (object.type && object.type == 'linkageShowModule') {
-                this.showThisModuleHandle()
-            } else if (object.type && object.type == 'linkageHideModule') {
-                this.hideThisModuleHandle()
+            switch(object.type) {
+                case 'linkageReload':
+                    this.initData()
+                    break
             }
         },
         setContextValue(object) {
@@ -192,12 +199,7 @@ export default {
             }
             //这里使用的是子表，所以要循环匹配所有子表的属性然后再去设置修改默认值
             if (object.key == this.propData.dataName) {
-                // this.propData.fontContent = this.getExpressData(this.propData.dataName,this.propData.dataFiled,object.data);
-                this.$set(
-                    this.propData,
-                    'fontContent',
-                    this.getExpressData(this.propData.dataName, this.propData.dataFiled, object.data)
-                )
+                this.softwareList = this.getExpressData(this.propData.dataName, this.propData.dataFiled, object.data)
             }
         },
         sendBroadcastMessage(object) {
@@ -237,6 +239,7 @@ export default {
         flex: 1;
         display: flex;
         align-items: center;
+        overflow: auto;
     }
 }
 </style>

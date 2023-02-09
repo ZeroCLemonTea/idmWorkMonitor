@@ -23,11 +23,11 @@
                 {
                     "type": "textarea",
                     "layoutType": "inline",
-                    "text": "内容文本",
+                    "text": "悬浮文本",
                     "bindKey": "tipTemplate",
                     "defaultValRegExp": false,
                     "desc": "可用文本表达式配置",
-                    "default": "<div>@[memberName]同志</div>"
+                    "default": "<div>@[name]</div>"
                 }
             ]
         },
@@ -48,17 +48,17 @@
                 {
                     "type": "input",
                     "layoutType": "inline",
-                    "text": "左侧宽度",
-                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
-                    "bindKey": "leftWidth",
+                    "text": "高",
+                    "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                    "bindKey": "height",
                     "default": "100px"
                 },
                 {
                     "type": "input",
                     "layoutType": "inline",
-                    "text": "高",
-                    "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
-                    "bindKey": "height",
+                    "text": "左侧宽度",
+                    "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                    "bindKey": "leftWidth",
                     "default": "100px"
                 },
                 {
@@ -246,6 +246,192 @@
                         "fontLetterSpacing": 0,
                         "fontLetterSpacingUnit": "px"
                     }
+                },
+                {
+                    "type": "group",
+                    "text": "图片样式",
+                    "desc": "点击？查看样式设置用法指南",
+                    "helpUrl": "",
+                    "children": [
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "图片宽",
+                            "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                            "bindKey": "imageWidth",
+                            "default": "40px"
+                        },
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "图片高",
+                            "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                            "bindKey": "imageHeight",
+                            "default": "40px"
+                        },
+                        {
+                            "type": "border",
+                            "layoutType": "block",
+                            "text": "图片边框",
+                            "bindKey": "imageBorder",
+                            "default": {
+                                "border": {
+                                    "top": {
+                                        "style": "",
+                                        "width": "",
+                                        "widthUnit": "",
+                                        "colors": {
+                                            "hex8": ""
+                                        }
+                                    },
+                                    "right": {
+                                        "style": "",
+                                        "width": "",
+                                        "widthUnit": "",
+                                        "colors": {
+                                            "hex8": ""
+                                        }
+                                    },
+                                    "bottom": {
+                                        "style": "",
+                                        "width": "",
+                                        "widthUnit": "",
+                                        "colors": {
+                                            "hex8": ""
+                                        }
+                                    },
+                                    "left": {
+                                        "style": "",
+                                        "width": "",
+                                        "widthUnit": "",
+                                        "colors": {
+                                            "hex8": ""
+                                        }
+                                    }
+                                },
+                                "radius": {
+                                    "leftTop": {
+                                        "radius": 50,
+                                        "radiusUnit": "%"
+                                    },
+                                    "rightTop": {
+                                        "radius": 50,
+                                        "radiusUnit": "%"
+                                    },
+                                    "leftBottom": {
+                                        "radius": 50,
+                                        "radiusUnit": "%"
+                                    },
+                                    "rightBottom": {
+                                        "radius": 50,
+                                        "radiusUnit": "%"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "type": "box",
+                            "layoutType": "block",
+                            "text": "图片边距",
+                            "bindKey": "imageBox",
+                            "default": {
+                                "marginTopVal": "",
+                                "marginRightVal": "20px",
+                                "marginBottomVal": "",
+                                "marginLeftVal": "30px",
+                                "paddingTopVal": "",
+                                "paddingRightVal": "",
+                                "paddingBottomVal": "",
+                                "paddingLeftVal": ""
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "text": "状态组配置",
+            "bindKey": "statusList",
+            "tabText": "状态[index]",
+            "default": [
+                {
+                    "status": "正常",
+                    "backgroundColor": "radial-gradient(#CDFF57 18%, #6DD400 100%)"
+                },
+                {
+                    "status": "异常",
+                    "backgroundColor": "radial-gradient(#FFDE57 18%, #FFB438 100%)"
+                },
+                {
+                    "status": "关闭",
+                    "backgroundColor": "radial-gradient(#E8E8E8 18%, #C1C1C1 100%)"
+                }
+            ],
+            "children": [
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "状态文本",
+                    "bindKey": "status"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "背景颜色",
+                    "bindKey": "backgroundColor"
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "高级",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "select",
+                    "layoutType": "inline",
+                    "text": "数据模式",
+                    "bindKey": "dataType",
+                    "default": "dataSource",
+                    "dictionary": [
+                        {
+                            "label": "数据源",
+                            "value": "dataSource"
+                        },
+                        {
+                            "label": "页面统一接口",
+                            "value": "pageCommonInterface"
+                        }
+                    ]
+                },
+                {
+                    "type": "dataSourceSelect",
+                    "text": "数据源",
+                    "layoutType": "inline",
+                    "display": "@[dataType == 'dataSource']",
+                    "bindKey": "dataSource"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "结果集名",
+                    "bindKey": "dataName",
+                    "desc": "页面接口设定的结果集名称，位置为：页面设置》高级设置》页面接口",
+                    "default": "",
+                    "placeholder": "示例：resultData",
+                    "display": "@[dataType=='pageCommonInterface']"
+                },
+                {
+                    "type": "textarea",
+                    "layoutType": "inline",
+                    "text": "显示字段",
+                    "bindKey": "dataFiled",
+                    "desc": "根据接口返回数据格式指定结果集的字段，比如结果集名为resultData（自定义接口忽略）且它的值为{data:{filedName:[{\"text\":\"\",\"value\":\"\",\"check\":true}]}}，则这里应该填写data.filedName",
+                    "default": "",
+                    "placeholder": "示例：data.filedName 或者 [0].data[0].filedName",
+                    "display": "@[dataType=='pageCommonInterface']"
                 }
             ]
         }
