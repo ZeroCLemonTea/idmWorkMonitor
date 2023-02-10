@@ -31,6 +31,13 @@
       "className": "IBlockStatistics",
       "comType": "common",
       "comLangue": "vue"
+    },
+    {
+      "classId": "idm.component.workMonitor.cardContainer",
+      "comName": "卡片容器",
+      "className": "ICardContainer",
+      "comType": "common",
+      "comLangue": "vue"
     }
   ]
 }
