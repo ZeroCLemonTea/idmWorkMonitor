@@ -451,8 +451,5 @@ export default {
       }
     }
   }
-
-  .i-cardContainer-content {
-  }
 }
 </style>
