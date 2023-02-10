@@ -24,6 +24,13 @@
       "className": "ISoftwareList",
       "comType": "common",
       "comLangue": "vue"
+    },
+    {
+      "classId": "idm.component.workMonitor.blockStatistics",
+      "comName": "统计方块",
+      "className": "IBlockStatistics",
+      "comType": "common",
+      "comLangue": "vue"
     }
   ]
 }
