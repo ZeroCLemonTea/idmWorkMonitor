@@ -27,6 +27,7 @@
                 background : item.customSet && item.customSet.imgBgColor ? item.customSet.imgBgColor : propData.blockImgBg,
                 color: item.customSet && item.customSet.iconColor ? item.customSet.iconColor : propData.blockIconColor,
                 'border-color': item.customSet && item.customSet.bdColor,
+                transform: propData.picCenter ? 'translate(50%, -50%)' : 'none',
                 top: propData.picTop,
                 bottom: propData.picBottom,
                 left: propData.picLeft,
@@ -50,6 +51,7 @@
             <div 
               class="name"
               :style="{
+                transform: propData.nameCenter ? 'translate(50%, -50%)' : 'none',
                 top: propData.nameTop,
                 bottom: propData.nameBottom,
                 left: propData.nameLeft,
@@ -61,6 +63,7 @@
             <div
               class="count"
               :style="{
+                transform: propData.numCenter ? 'translate(50%, -50%)' : 'none',
                 top: propData.numTop,
                 bottom: propData.numBottom,
                 left: propData.numLeft,

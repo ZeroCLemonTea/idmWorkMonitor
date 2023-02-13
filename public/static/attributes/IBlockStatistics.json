@@ -122,6 +122,13 @@
           "text": "图片位置",
           "children": [
             {
+              "type": "switch",
+              "layoutType": "inline",
+              "text": "中心原点",
+              "bindKey": "picCenter",
+              "default": false
+            },
+            {
               "type": "input",
               "layoutType": "inline",
               "text": "top",
@@ -156,6 +163,13 @@
           "text": "名称位置",
           "children": [
             {
+              "type": "switch",
+              "layoutType": "inline",
+              "text": "中心原点",
+              "bindKey": "nameCenter",
+              "default": false
+            },
+            {
               "type": "input",
               "layoutType": "inline",
               "text": "top",
@@ -189,6 +203,13 @@
           "type": "group",
           "text": "数字位置",
           "children": [
+            {
+              "type": "switch",
+              "layoutType": "inline",
+              "text": "中心原点",
+              "bindKey": "numCenter",
+              "default": false
+            },
             {
               "type": "input",
               "layoutType": "inline",
