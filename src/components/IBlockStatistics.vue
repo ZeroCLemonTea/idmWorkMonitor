@@ -458,6 +458,7 @@ export default {
         }
         .name {
           width: fit-content;
+          height: fit-content;
           position: absolute;
           margin: auto;
           right: 0;
@@ -470,6 +471,7 @@ export default {
         }
         .count {
           width: fit-content;
+          height: fit-content;
           position: absolute;
           margin: auto;
           right: 0;
