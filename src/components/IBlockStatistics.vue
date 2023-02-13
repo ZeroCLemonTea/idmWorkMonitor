@@ -446,6 +446,11 @@ export default {
           box-shadow: 0 2px 4px 0 rgba(175,175,175,0.50);
           padding: 20px;
           background-color: #FFFFFF;
+          img {
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
           .idm_filed_svg_icon {
             font-size: 1em;
             width: 1em;
