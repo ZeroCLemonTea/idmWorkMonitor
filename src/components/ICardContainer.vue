@@ -101,7 +101,6 @@ export default {
      */
     propDataWatchHandle(propData) {
       this.propData = propData.compositeAttr || {};
-      this.initData();
       this.convertAttrToStyleObject();
       this.convertThemeListAttrToStyleObject();
     },
