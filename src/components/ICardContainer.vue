@@ -401,8 +401,6 @@ export default {
       align-items: center;
 
       .i-cardContainer-header-tit {
-       
-        max-width: 60%;
         display: flex;
         // align-items: center;
         border-bottom: 2px solid #0067D0;
@@ -411,7 +409,6 @@ export default {
         .i-cardContainer-header-tit-icon {
           margin-right: 5px;
           display: inline-block;
-          flex: 1;
         }
 
         span {
@@ -419,8 +416,6 @@ export default {
           color: #0067D0;
           font-weight: 600;
           line-height: 48px;
-          width: 90%;
-          flex: 8;
         }
 
         .idm_filed_svg_icon {
