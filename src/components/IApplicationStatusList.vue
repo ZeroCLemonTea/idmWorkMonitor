@@ -31,7 +31,8 @@ export default {
             propData: this.$root.propData.compositeAttr || {
                 fontContent: 'Hello Word'
             },
-            applicationStatusList: []
+            applicationStatusList: [],
+            messageParams: {}
         }
     },
     created() {
@@ -168,7 +169,7 @@ export default {
                         this.propData?.dataSource?.[0]?.id,
                         {
                             moduleObject: this.moduleObject,
-                            param: params
+                            param: {...params, ...this.messageParams}
                         },
                         (res) => {
                             this.applicationStatusList = res
@@ -214,6 +215,7 @@ export default {
             console.log('组件收到消息', object)
             switch (object.type) {
                 case 'linkageReload':
+                    this.messageParams = object.message
                     this.initData()
                     break
             }
@@ -240,7 +242,8 @@ export default {
             var params = {
                 pageId:
                     window.IDM.broadcast && window.IDM.broadcast.pageModule ? window.IDM.broadcast.pageModule.id : '',
-                urlData: JSON.stringify(urlObject)
+                urlData: JSON.stringify(urlObject),
+                ...urlObject
             }
             return params
         }
