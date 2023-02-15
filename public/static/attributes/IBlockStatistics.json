@@ -293,6 +293,14 @@
           "default": ""
         },
         {
+          "type": "input",
+          "layoutType": "inline",
+          "text": "名称",
+          "desc": "不填则会取字段设置",
+          "bindKey": "name",
+          "default": ""
+        },
+        {
           "type": "uploadImage",
           "layoutType": "inline",
           "text": "图片",
@@ -317,18 +325,22 @@
         {
           "type": "input",
           "layoutType": "inline",
-          "text": "名称",
-          "desc": "不填则会取字段设置",
-          "bindKey": "name",
-          "default": ""
-        },
-        {
-          "type": "input",
-          "layoutType": "inline",
           "text": "图片背景",
           "desc": "可填hex,hex8,rgba,rgb,渐变",
           "bindKey": "imgBgColor",
           "default": ""
+        },
+        {
+          "type": "colorPicker",
+          "layoutType": "inline",
+          "text": "名称颜色",
+          "bindKey": "nameColor"
+        },
+        {
+          "type": "colorPicker",
+          "layoutType": "inline",
+          "text": "数字颜色",
+          "bindKey": "countColor"
         },
         {
           "type": "input",
