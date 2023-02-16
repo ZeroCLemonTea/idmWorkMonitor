@@ -19,14 +19,13 @@
           :style="{width: 100/propData.columnNum + '%'}"
           class="i-blockStatistics-content-cell"
         >
-          <div class="block" :style="{background: item.customSet && item.customSet.bgColor ? item.customSet.bgColor : propData.blockBg}" @click.stop="onBlockClick(item, index)">
+          <div class="block" :style="{background: item.customSet && item.customSet.bgColor ? item.customSet.bgColor : propData.blockBg, 'border-color': item.customSet && item.customSet.bdColor && item.customSet.bdColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.bdColor.hex8) : '' }" @click.stop="onBlockClick(item, index)">
             <div 
               v-if="propData.picType != 'none'" 
               class="img"
               :style="{
                 background : item.customSet && item.customSet.imgBgColor ? item.customSet.imgBgColor : propData.blockImgBg,
-                color: item.customSet && item.customSet.iconColor ? item.customSet.iconColor : propData.blockIconColor,
-                'border-color': item.customSet && item.customSet.bdColor,
+                color: item.customSet && item.customSet.iconColor && item.customSet.iconColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.iconColor.hex8) : propData.blockIconColor && propData.blockIconColor.hex8 ? IDM.hex8ToRgbaString(propData.blockIconColor.hex8) : '',
                 transform: propData.picCenter ? 'translate(50%, -50%)' : 'none',
                 top: propData.picTop,
                 bottom: propData.picBottom,
@@ -51,6 +50,7 @@
             <div 
               class="name"
               :style="{
+                color: item.customSet && item.customSet.nameColor && item.customSet.nameColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.nameColor.hex8) : '',
                 transform: propData.nameCenter ? 'translate(50%, -50%)' : 'none',
                 top: propData.nameTop,
                 bottom: propData.nameBottom,
@@ -63,6 +63,7 @@
             <div
               class="count"
               :style="{
+                color: item.customSet && item.customSet.countColor && item.customSet.countColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.countColor.hex8) : '',
                 transform: propData.numCenter ? 'translate(50%, -50%)' : 'none',
                 top: propData.numTop,
                 bottom: propData.numBottom,
