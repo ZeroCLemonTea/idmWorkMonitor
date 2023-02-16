@@ -639,11 +639,14 @@
                     "helpUrl": "",
                     "children": [
                         {
-                            "type": "input",
+                            "type": "dataSourceFiledSelect",
                             "layoutType": "inline",
                             "text": "状态代码",
                             "bindKey": "statusField",
-                            "default": "type"
+                            "default": "type",
+                            "ctrlAttrObject": {
+                                "dataSourceBindkey": "dataSource"
+                            }
                         }
                     ]
                 }

@@ -495,25 +495,34 @@
                     "helpUrl": "",
                     "children": [
                         {
-                            "type": "input",
+                            "type": "dataSourceFiledSelect",
                             "layoutType": "inline",
                             "text": "应用代码",
                             "bindKey": "applicationTypeField",
-                            "default": "type"
+                            "default": "type",
+                            "ctrlAttrObject": {
+                                "dataSourceBindkey": "dataSource"
+                            }
                         },
                         {
-                            "type": "input",
+                            "type": "dataSourceFiledSelect",
                             "layoutType": "inline",
                             "text": "应用数量",
                             "bindKey": "applicationNumberField",
-                            "default": "applicationNumber"
+                            "default": "applicationNumber",
+                            "ctrlAttrObject": {
+                                "dataSourceBindkey": "dataSource"
+                            }
                         },
                         {
-                            "type": "input",
+                            "type": "dataSourceFiledSelect",
                             "layoutType": "inline",
                             "text": "状态文本",
                             "bindKey": "statusTextField",
-                            "default": "statusText"
+                            "default": "statusText",
+                            "ctrlAttrObject": {
+                                "dataSourceBindkey": "dataSource"
+                            }
                         }
                     ]
                 }
