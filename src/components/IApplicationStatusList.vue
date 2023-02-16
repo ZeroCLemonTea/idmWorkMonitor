@@ -75,7 +75,7 @@ export default {
         handleGetStyle(items) {
             let styleObj = {}
             const currentItem = this?.propData.statusList?.find(
-                (el) => el.type === IDM.express.replace(`@[${this.propData.applicationTypeField}]`, items, true)
+                (el) => el.type == IDM.express.replace(`@[${this.propData.applicationTypeField}]`, items, true)
             )
             if (currentItem) {
                 styleObj.backgroundImage = currentItem.backgroundColor
