@@ -215,6 +215,7 @@ export default {
             console.log('组件收到消息', object)
             switch (object.type) {
                 case 'linkageReload':
+                case 'linkageDemand':
                     this.messageParams = object.message
                     this.initData()
                     break
