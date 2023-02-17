@@ -214,6 +214,9 @@ export default {
         receiveBroadcastMessage(object) {
             console.log('组件收到消息', object)
             switch (object.type) {
+                case 'linkageResult':
+                    this.applicationStatusList = object.message
+                    break
                 case 'linkageReload':
                 case 'linkageDemand':
                     this.messageParams = object.message
