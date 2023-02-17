@@ -169,10 +169,10 @@ export default {
                         this.propData?.dataSource?.[0]?.id,
                         {
                             moduleObject: this.moduleObject,
-                            param: {...params, ...this.messageParams}
+                            param: { ...params, ...this.messageParams }
                         },
                         (res) => {
-                            this.applicationStatusList = res
+                            this.applicationStatusList = this.handleResult(res)
                         },
                         (err) => {
                             this.applicationStatusList = []
@@ -211,11 +211,19 @@ export default {
 
             return _defaultVal
         },
+        handleResult(result) {
+            const customFunction = this.propData?.handleResultFunction?.[0]
+            if (!customFunction || result === undefined) return result
+            return window?.[customFunction?.name]?.call(this, {
+                ...customFunction.param,
+                result
+            })
+        },
         receiveBroadcastMessage(object) {
             console.log('组件收到消息', object)
             switch (object.type) {
                 case 'linkageResult':
-                    this.applicationStatusList = object.message
+                    this.applicationStatusList = this.handleResult(object.message)
                     break
                 case 'linkageReload':
                 case 'linkageDemand':
