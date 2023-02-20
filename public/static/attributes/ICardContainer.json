@@ -39,60 +39,42 @@
         {
           "type": "switch",
           "layoutType": "inline",
-          "text": "显示更多",
-          "desc": "配置是否显示更多",
-          "bindKey": "showMore",
-          "default": false
-        },
-        {
-          "type": "switch",
-          "layoutType": "inline",
           "text": "标题容器",
           "desc": "配置是否显示标题右侧容器",
           "bindKey": "showTitleDrag",
           "default": false
         },
         {
-          "type": "select",
+          "type": "switch",
           "layoutType": "inline",
-          "text": "跳转方式",
-          "desc": "用于设置更多的跳转方式",
-          "bindKey": "moreJumpType",
-          "display": "@[showMore]",
-          "dictionary": [
-            {
-              "label": "内嵌标签页打开",
-              "value": "tab"
-            },
-            {
-              "label": "新窗口打开",
-              "value": "_block"
-            },
-            {
-              "label": "当前窗口打开",
-              "value": "_self"
-            },
-            {
-              "label": "自定义函数",
-              "value": "custom"
-            }
-          ],
-          "default": "tab"
+          "text": "详情跳转",
+          "desc": "配置是否显示详情",
+          "bindKey": "showMore",
+          "default": false
         },
         {
-          "type": "input",
+          "type": "switch",
           "layoutType": "inline",
-          "text": "跳转路径",
-          "bindKey": "moreUrl",
-          "desc": "跳转路径",
-          "display": "@[showMore&&moreJumpType!='custom']"
+          "text": "状态跳转",
+          "desc": "配置是否显示状态",
+          "bindKey": "showMore2",
+          "default": false
         },
         {
           "type": "actionSelect",
           "layoutType": "block",
-          "text": "跳转自定义函数",
+          "text": "详情跳转自定义函数",
           "bindKey": "customMoreBtnFunction",
-          "display": "@[showMore&&moreJumpType=='custom']",
+          "display": "@[showMore]",
+          "desc": "参数为{commonParam: 组件信息, customParam: 用户自定义参数}",
+          "multiple": false
+        },
+        {
+          "type": "actionSelect",
+          "layoutType": "block",
+          "text": "状态跳转自定义函数",
+          "bindKey": "customMore2BtnFunction",
+          "display": "@[showMore2]",
           "desc": "参数为{commonParam: 组件信息, customParam: 用户自定义参数}",
           "multiple": false
         }
@@ -193,7 +175,7 @@
         },
         {
           "type": "group",
-          "text": "更多属性设置",
+          "text": "详情跳转样式设置",
           "desc": "点击？查看更多属性设置用法指南",
           "display": "@[showMore]",
           "helpUrl": "",
@@ -201,14 +183,14 @@
             {
               "type": "input",
               "layoutType": "inline",
-              "text": "更多文案",
+              "text": "文案",
               "bindKey": "moreDesc"
             },
             {
               "type": "font",
               "layoutType": "block",
-              "text": "更多文字",
-              "desc": "更多文字样式设置",
+              "text": "文字",
+              "desc": "文字样式设置",
               "bindKey": "moreFont"
             },
             {
@@ -228,6 +210,46 @@
               "layoutType": "inline",
               "text": "图标大小",
               "bindKey": "moreIconSize"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "text": "状态跳转样式设置",
+          "desc": "点击？查看更多属性设置用法指南",
+          "display": "@[showMore2]",
+          "helpUrl": "",
+          "children": [
+            {
+              "type": "input",
+              "layoutType": "inline",
+              "text": "文案",
+              "bindKey": "more2Desc"
+            },
+            {
+              "type": "font",
+              "layoutType": "block",
+              "text": "文字",
+              "desc": "文字样式设置",
+              "bindKey": "more2Font"
+            },
+            {
+              "type": "iconSelect",
+              "layoutType": "inline",
+              "text": "自定义图标",
+              "bindKey": "more2Icon"
+            },
+            {
+              "type": "colorPicker",
+              "layoutType": "inline",
+              "text": "图标颜色",
+              "bindKey": "more2IconColor"
+            },
+            {
+              "type": "inputNumber",
+              "layoutType": "inline",
+              "text": "图标大小",
+              "bindKey": "more2IconSize"
             }
           ]
         }

@@ -36,6 +36,17 @@
           />
         </div>
       </div>
+      <div class="i-cardContainer-header-more2" v-if="propData.showMore2" @click="onMore2Click">
+        <span>{{propData.more2Desc || ''}}</span>
+        <svg
+          v-if="propData.more2Icon && propData.more2Icon.length > 0"
+          class="idm_filed_svg_icon"
+          aria-hidden="true"
+        >
+          <use :xlink:href="`#${propData.more2Icon && propData.more2Icon[0]}`" />
+        </svg>
+        <svg-icon v-else icon-class="gengduo" className="idm_filed_svg_icon"/>
+      </div>
       <div class="i-cardContainer-header-more" v-if="propData.showMore" @click="onMoreClick">
         <span>{{propData.moreDesc || ''}}</span>
         <svg
@@ -84,19 +95,13 @@ export default {
       if (this.moduleObject.env !== 'production') {
         return;
       }
-      if (this.propData.moreJumpType === 'custom') {
-        this.customFunctionHandle(this.propData.customMoreBtnFunction, {param: this.addParam});
-      } else if (this.propData.moreJumpType === 'tab' && this.propData.moreUrl) {
-        const item = {
-          isTabReload: "-1",
-          name: this.propData.title,
-          action: IDM.url.getWebPath(this.propData.moreUrl)
-        };
-        window.$$iframeCtrl && window.$$iframeCtrl.addTab(item);
-      } else if (this.propData.moreUrl) {
-        const url = IDM.url.getWebPath(this.propData.moreUrl);
-        window.open(url, this.propData.moreJumpType || '_block');
+      this.customFunctionHandle(this.propData.customMoreBtnFunction, {param: this.addParam});
+    },
+    onMore2Click(){
+      if (this.moduleObject.env !== 'production') {
+        return;
       }
+      this.customFunctionHandle(this.propData.customMore2BtnFunction, {param: this.addParam});
     },
     /**
      * 提供父级组件调用的刷新prop数据组件
@@ -174,6 +179,8 @@ export default {
       const iconStyleObject = {};
       const moreStyleObject = {};
       const moreIconStyleObject={};
+      const more2StyleObject={};
+      const more2IconStyleObject={};
       const headerTitStyleObject = {};
       const headerDragStyleObject ={};
 
@@ -293,6 +300,15 @@ export default {
             case 'moreFont':
               IDM.style.setFontStyle(moreStyleObject, element);
               break;
+            case 'more2IconColor':
+              more2IconStyleObject['color'] = element && element.hex8 ? IDM.hex8ToRgbaString(element.hex8) : '';
+              break;
+            case 'more2IconSize':
+              more2IconStyleObject['font-size'] = element + 'px';
+              break;
+            case 'more2Font':
+              IDM.style.setFontStyle(more2StyleObject, element);
+              break;
             case 'headerBox':
               IDM.style.setBoxStyle(headerStyleObject, element);
               break;
@@ -349,6 +365,16 @@ export default {
           ' #' + this.moduleObject.id + ' .i-cardContainer-header .i-cardContainer-header-more .idm_filed_svg_icon',
         moreIconStyleObject
       );
+      window.IDM.setStyleToPageHead(
+        this.moduleObject.packageid +
+          ' #' + this.moduleObject.id + ' .i-cardContainer-header .i-cardContainer-header-more2 span',
+        more2StyleObject
+      );
+      window.IDM.setStyleToPageHead(
+        this.moduleObject.packageid +
+          ' #' + this.moduleObject.id + ' .i-cardContainer-header .i-cardContainer-header-more2 .idm_filed_svg_icon',
+        more2IconStyleObject
+      );
     },
     /**
      * 主题颜色
@@ -398,6 +424,20 @@ export default {
             themeNamePrefix +
             item.key +
             ' .i-cardContainer-outer .i-cardContainer-header .i-cardContainer-header-more .idm_filed_svg_icon',
+          {color: item.mainColor ? IDM.hex8ToRgbaString(item.mainColor.hex8) : ''}
+        );
+        IDM.setStyleToPageHead(
+          '.' +
+            themeNamePrefix +
+            item.key +
+            ' .i-cardContainer-outer .i-cardContainer-header .i-cardContainer-header-more2 span',
+          {color: item.mainColor ? IDM.hex8ToRgbaString(item.mainColor.hex8) : ''}
+        );
+        IDM.setStyleToPageHead(
+          '.' +
+            themeNamePrefix +
+            item.key +
+            ' .i-cardContainer-outer .i-cardContainer-header .i-cardContainer-header-more2 .idm_filed_svg_icon',
           {color: item.mainColor ? IDM.hex8ToRgbaString(item.mainColor.hex8) : ''}
         );
       }
@@ -466,11 +506,25 @@ export default {
 
     .i-cardContainer-header-more {
       margin-left: 20px;
-      margin-right: 5px;
       cursor: pointer;
-      &:hover {
-        opacity: 0.7;
+      span {
+        font-size: 14px;
+        color: #0954C6;
+        margin: 0 5px;
       }
+      .idm_filed_svg_icon {
+        font-size: 1em;
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
+        vertical-align: -0.15em;
+        outline: none;
+      }
+    }
+
+    .i-cardContainer-header-more2 {
+      margin-left: 20px;
+      cursor: pointer;
       span {
         font-size: 14px;
         color: #0954C6;
