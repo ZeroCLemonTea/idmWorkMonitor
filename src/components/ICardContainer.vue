@@ -23,7 +23,7 @@
             >
               <use :xlink:href="`#${propData.titleIcon && propData.titleIcon[0]}`" />
             </svg>
-            <svg-icon v-else class="idm_filed_svg_icon" icon-class="application-icon" />
+            <!-- <svg-icon v-else class="idm_filed_svg_icon" icon-class="application-icon" /> -->
           </div>
           <span>{{ propData.title }}</span>
         </div>
@@ -45,7 +45,7 @@
         >
           <use :xlink:href="`#${propData.more2Icon && propData.more2Icon[0]}`" />
         </svg>
-        <svg-icon v-else icon-class="gengduo" className="idm_filed_svg_icon"/>
+        <!-- <svg-icon v-else icon-class="gengduo" className="idm_filed_svg_icon"/> -->
       </div>
       <div class="i-cardContainer-header-more" v-if="propData.showMore" @click="onMoreClick">
         <span>{{propData.moreDesc || ''}}</span>
@@ -56,7 +56,7 @@
         >
           <use :xlink:href="`#${propData.moreIcon && propData.moreIcon[0]}`" />
         </svg>
-        <svg-icon v-else icon-class="gengduo" className="idm_filed_svg_icon"/>
+        <!-- <svg-icon v-else icon-class="gengduo" className="idm_filed_svg_icon"/> -->
       </div>
     </div>
     <div key="i-cardContainer-content" class="i-cardContainer-content">
