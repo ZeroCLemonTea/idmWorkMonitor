@@ -510,9 +510,9 @@ export default {
       span {
         font-size: 14px;
         color: #0954C6;
-        margin: 0 5px;
       }
       .idm_filed_svg_icon {
+        margin-left: 5px;
         font-size: 1em;
         width: 1em;
         height: 1em;
@@ -528,9 +528,9 @@ export default {
       span {
         font-size: 14px;
         color: #0954C6;
-        margin: 0 5px;
       }
       .idm_filed_svg_icon {
+        margin-left: 5px;
         font-size: 1em;
         width: 1em;
         height: 1em;
