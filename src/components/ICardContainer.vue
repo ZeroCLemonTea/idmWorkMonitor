@@ -37,6 +37,7 @@
         </div>
       </div>
       <div class="i-cardContainer-header-more" v-if="propData.showMore" @click="onMoreClick">
+        <span>{{propData.moreDesc || ''}}</span>
         <svg
           v-if="propData.moreIcon && propData.moreIcon.length > 0"
           class="idm_filed_svg_icon"
@@ -161,6 +162,7 @@ export default {
       const innerCardStyleObject = {};
       const iconStyleObject = {};
       const moreStyleObject = {};
+      const moreIconStyleObject={};
       const headerTitStyleObject = {};
       const headerDragStyleObject ={};
 
@@ -272,10 +274,13 @@ export default {
               iconStyleObject['font-size'] = element + 'px';
               break;
             case 'moreIconColor':
-              moreStyleObject['color'] = element && element.hex8 ? IDM.hex8ToRgbaString(element.hex8) : '';
+              moreIconStyleObject['color'] = element && element.hex8 ? IDM.hex8ToRgbaString(element.hex8) : '';
               break;
             case 'moreIconSize':
-              moreStyleObject['font-size'] = element + 'px';
+              moreIconStyleObject['font-size'] = element + 'px';
+              break;
+            case 'moreFont':
+              IDM.style.setFontStyle(moreStyleObject, element);
               break;
             case 'headerBox':
               IDM.style.setBoxStyle(headerStyleObject, element);
@@ -324,9 +329,14 @@ export default {
         iconStyleObject
       );
       window.IDM.setStyleToPageHead(
-        this.moduleObject.id +
-          ' .i-cardContainer-header .i-cardContainer-header-more',
+        this.moduleObject.packageid +
+          ' #' + this.moduleObject.id + ' .i-cardContainer-header .i-cardContainer-header-more span',
         moreStyleObject
+      );
+      window.IDM.setStyleToPageHead(
+        this.moduleObject.packageid +
+          ' #' + this.moduleObject.id + ' .i-cardContainer-header .i-cardContainer-header-more .idm_filed_svg_icon',
+        moreIconStyleObject
       );
     },
     /**
@@ -363,6 +373,20 @@ export default {
             themeNamePrefix +
             item.key +
             ' .i-cardContainer-outer .i-cardContainer-header-tit span',
+          {color: item.mainColor ? IDM.hex8ToRgbaString(item.mainColor.hex8) : ''}
+        );
+        IDM.setStyleToPageHead(
+          '.' +
+            themeNamePrefix +
+            item.key +
+            ' .i-cardContainer-outer .i-cardContainer-header .i-cardContainer-header-more span',
+          {color: item.mainColor ? IDM.hex8ToRgbaString(item.mainColor.hex8) : ''}
+        );
+        IDM.setStyleToPageHead(
+          '.' +
+            themeNamePrefix +
+            item.key +
+            ' .i-cardContainer-outer .i-cardContainer-header .i-cardContainer-header-more .idm_filed_svg_icon',
           {color: item.mainColor ? IDM.hex8ToRgbaString(item.mainColor.hex8) : ''}
         );
       }
@@ -430,10 +454,15 @@ export default {
     }
 
     .i-cardContainer-header-more {
-      margin: 0 10px;
+      margin: 0 5px;
       cursor: pointer;
       &:hover {
         opacity: 0.7;
+      }
+      span {
+        font-size: 14px;
+        color: #0954C6;
+        margin: 0 3px;
       }
       .idm_filed_svg_icon {
         font-size: 1em;

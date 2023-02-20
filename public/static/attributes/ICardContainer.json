@@ -199,6 +199,19 @@
           "helpUrl": "",
           "children": [
             {
+              "type": "input",
+              "layoutType": "inline",
+              "text": "更多文案",
+              "bindKey": "moreDesc"
+            },
+            {
+              "type": "font",
+              "layoutType": "block",
+              "text": "更多文字",
+              "desc": "更多文字样式设置",
+              "bindKey": "moreFont"
+            },
+            {
               "type": "iconSelect",
               "layoutType": "inline",
               "text": "自定义图标",
