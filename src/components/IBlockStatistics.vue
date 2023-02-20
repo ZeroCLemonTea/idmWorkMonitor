@@ -9,15 +9,15 @@
     idm-ctrl="idm_module"
     :id="moduleObject.id"
     :idm-ctrl-id="moduleObject.id"
-    class="i-blockStatistics-outer"
+    class="idmWorkMonitor-blockStatistics-outer"
     ref="module_ref"
   >
-    <div class="i-blockStatistics-content">
+    <div class="idmWorkMonitor-blockStatistics-content">
       <template v-for="item,index in data">
         <div
           :key="index"
           :style="{width: 100/propData.columnNum + '%'}"
-          class="i-blockStatistics-content-cell"
+          class="idmWorkMonitor-blockStatistics-content-cell"
         >
           <div class="block" :style="{background: item.customSet && item.customSet.bgColor ? item.customSet.bgColor : propData.blockBg, 'border-color': item.customSet && item.customSet.bdColor && item.customSet.bdColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.bdColor.hex8) : '' }" @click.stop="onBlockClick(item, index)">
             <div 
@@ -382,19 +382,19 @@ export default {
       }
       window.IDM.setStyleToPageHead(this.moduleObject.id, styleObject);
       window.IDM.setStyleToPageHead(
-        this.moduleObject.id + ` .i-blockStatistics-content .i-blockStatistics-content-cell .block`,
+        this.moduleObject.id + ` .idmWorkMonitor-blockStatistics-content .idmWorkMonitor-blockStatistics-content-cell .block`,
         blockStyleObject
       );
       window.IDM.setStyleToPageHead(
-         this.moduleObject.id + ` .i-blockStatistics-content .i-blockStatistics-content-cell .block .name`,
+         this.moduleObject.id + ` .idmWorkMonitor-blockStatistics-content .idmWorkMonitor-blockStatistics-content-cell .block .name`,
         blockNameStyleObject
       );
       window.IDM.setStyleToPageHead(
-        this.moduleObject.id + ` .i-blockStatistics-content .i-blockStatistics-content-cell .block .count`,
+        this.moduleObject.id + ` .idmWorkMonitor-blockStatistics-content .idmWorkMonitor-blockStatistics-content-cell .block .count`,
         blockNumStyleObject
       );
       window.IDM.setStyleToPageHead(
-        this.moduleObject.id + ` .i-blockStatistics-content .i-blockStatistics-content-cell .block .img`,
+        this.moduleObject.id + ` .idmWorkMonitor-blockStatistics-content .idmWorkMonitor-blockStatistics-content-cell .block .img`,
         blockImgStyleObject
       );
     }
@@ -403,7 +403,7 @@ export default {
 </script>
 
 <style lang="scss">
-.i-blockStatistics-outer {
+.idmWorkMonitor-blockStatistics-outer {
   width: auto;
   box-sizing: border-box;
   padding: 0 10px;
@@ -411,7 +411,7 @@ export default {
   height: 20vh;
   overflow: hidden;
 
-  .i-blockStatistics-content {
+  .idmWorkMonitor-blockStatistics-content {
     height: 100%;
     width: 100%;
     display: flex;
@@ -419,7 +419,7 @@ export default {
     align-items: stretch;
     align-content: stretch;
 
-    .i-blockStatistics-content-cell {
+    .idmWorkMonitor-blockStatistics-content-cell {
       // flex-grow: 1;
       // flex-shrink: 1;
       box-sizing: border-box;
