@@ -69,7 +69,8 @@ export default {
         title: '卡片标题',
         titDragPosition: "space-between",
         showTitleDrag: true
-      }
+      },
+      addParam: {}
     };
   },
   props: {},
@@ -84,7 +85,7 @@ export default {
         return;
       }
       if (this.propData.moreJumpType === 'custom') {
-        this.customFunctionHandle(this.propData.customMoreBtnFunction);
+        this.customFunctionHandle(this.propData.customMoreBtnFunction, {param: this.addParam});
       } else if (this.propData.moreJumpType === 'tab' && this.propData.moreUrl) {
         const item = {
           isTabReload: "-1",
@@ -151,6 +152,16 @@ export default {
             : '',
         urlObject: IDM.url.queryObject()
       };
+    },
+    /**
+     * 组件通信：接收消息的方法
+     */
+    receiveBroadcastMessage(messageObject) {
+      switch (messageObject.type) {
+        case 'linkageDemand':
+          this.addParam = messageObject.message || {};
+          break;
+      }
     },
     /**
      * 把属性转换成样式对象
