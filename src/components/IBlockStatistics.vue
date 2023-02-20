@@ -19,7 +19,7 @@
           :style="{width: 100/propData.columnNum + '%'}"
           class="idmWorkMonitor-blockStatistics-content-cell"
         >
-          <div class="block" :style="{background: item.customSet && item.customSet.bgColor ? item.customSet.bgColor : propData.blockBg, 'border-color': item.customSet && item.customSet.bdColor && item.customSet.bdColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.bdColor.hex8) : '' }" @click.stop="onBlockClick(item, index)">
+          <div class="block" :style="{background: item.customSet && item.customSet.bgColor ? item.customSet.bgColor : propData.blockBg, 'border-color': item.customSet && item.customSet.bdColor && item.customSet.bdColor.hex8 ? IDM.hex8ToRgbaString(item.customSet.bdColor.hex8) : '', 'cursor': propData.handleBlockClick && propData.handleBlockClick[0]?.name ? 'pointer' : 'default' }" @click.stop="onBlockClick(item, index)">
             <div 
               v-if="propData.picType != 'none'" 
               class="img"

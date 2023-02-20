@@ -454,7 +454,8 @@ export default {
     }
 
     .i-cardContainer-header-more {
-      margin: 0 5px;
+      margin-left: 20px;
+      margin-right: 5px;
       cursor: pointer;
       &:hover {
         opacity: 0.7;
@@ -462,14 +463,14 @@ export default {
       span {
         font-size: 14px;
         color: #0954C6;
-        margin: 0 3px;
+        margin: 0 5px;
       }
       .idm_filed_svg_icon {
         font-size: 1em;
         width: 1em;
         height: 1em;
         fill: currentColor;
-        /* vertical-align: -0.15em; */
+        vertical-align: -0.15em;
         outline: none;
       }
     }
