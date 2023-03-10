@@ -13,9 +13,9 @@
                         <template slot="title">
                             <div v-html="textFilter(items, item)"></div>
                         </template>
-                        <div class="idm-application-right-image" :style="handleGetStyle(items)"></div>
+                        <div class="idm-application-right-image" @click="handleClickStatusImage(items, item)" :style="handleGetStyle(items)"></div>
                     </a-tooltip>
-                    <div v-else class="idm-application-right-image" :style="handleGetStyle(items)" :key="indexs"></div>
+                    <div v-else class="idm-application-right-image" @click="handleClickStatusImage(items, item)" :style="handleGetStyle(items)" :key="indexs"></div>
                 </template>
             </div>
         </div>
@@ -61,6 +61,15 @@ export default {
                 return IDM.express.replace(str, items, true)
             })
             return text
+        },
+        handleClickStatusImage(items, item){
+            if(this.propData?.handleStatusClickFunction?.length > 0){
+                const func = this.propData.handleStatusClickFunction[0]
+                window?.[func.name]?.call(this, {
+                    appInstance: items,
+                    currentApp: item
+                })
+            }
         },
         handleGetCurrentApplication(item) {
             let obj = {}
@@ -281,6 +290,9 @@ export default {
         display: flex;
         align-items: center;
         overflow: auto;
+    }
+    .idm-application-right-image{
+        cursor: pointer;
     }
 }
 </style>

@@ -529,6 +529,14 @@
                 {
                     "type": "actionSelect",
                     "layoutType": "block",
+                    "text": "点击状态球自定义函数",
+                    "desc": "自定义点击应用状态球函数，接受参数：{appInstance: 点击应用实例, currentApp：点击应用实例所属分类}",
+                    "bindKey": "handleStatusClickFunction",
+                    "multiple": false
+                },
+                {
+                    "type": "actionSelect",
+                    "layoutType": "block",
                     "text": "结果处理函数",
                     "desc": "对获取/接受到的结果处理的自定义函数，参数：{result: 获取/接受到的结果...}",
                     "bindKey": "handleResultFunction",
